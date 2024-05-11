@@ -14,7 +14,8 @@ public class UserMapper {
                 createUserDto.getLastName(),
                 createUserDto.getFirstName(),
                 createUserDto.getEmail(),
-                createUserDto.getPhoneNumber()
+                createUserDto.getPhoneNumber(),
+                createUserDto.getPassword()
         );
     }
 
@@ -25,7 +26,8 @@ public class UserMapper {
                 updateUserDto.getLastName(),
                 updateUserDto.getFirstName(),
                 updateUserDto.getEmail(),
-                updateUserDto.getPhoneNumber()
+                updateUserDto.getPhoneNumber(),
+                updateUserDto.getPassword()
                 );
     }
 }

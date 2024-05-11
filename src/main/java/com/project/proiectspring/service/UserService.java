@@ -4,6 +4,8 @@ import com.project.proiectspring.exception.UserNotFoundException;
 import com.project.proiectspring.model.Book;
 import com.project.proiectspring.model.User;
 import com.project.proiectspring.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     }
 
     public User create(User user) { return userRepository.save(user); }
@@ -31,6 +35,7 @@ public class UserService {
         oldUser.setFirstName(user.getFirstName());
         oldUser.setLastName(user.getLastName());
         oldUser.setPhoneNumber(user.getPhoneNumber());
+        oldUser.setPassword(user.getPassword());
 
         return userRepository.save(oldUser);
     }
@@ -61,11 +66,33 @@ public class UserService {
         return null;
     }
 
+    public User getByEmail(String email) {
+
+        if(email != null) {
+            Optional<User> user = userRepository.findByEmailIgnoreCase(email);
+
+            if (user.isPresent()) {
+                return user.get();
+            }
+        }
+
+        return null;
+    }
+
     public void delete(Long id) {
 
         User user = get(id);
         if (user != null)
             userRepository.delete(user);
 
+    }
+
+    public void grantAccess(Long userId)
+    {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.grantAccess();
+        }
     }
 }

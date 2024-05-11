@@ -7,8 +7,8 @@ public class UpdateUserDto extends CreateUserDto {
     public UpdateUserDto() {
     }
 
-    public UpdateUserDto(long id, String lastName, String firstName, String email, String phoneNumber) {
-        super(lastName, firstName, email, phoneNumber);
+    public UpdateUserDto(long id, String lastName, String firstName, String email, String phoneNumber, String password) {
+        super(lastName, firstName, email, phoneNumber, password);
         this.id = id;
     }
 

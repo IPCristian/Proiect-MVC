@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent-A-Book</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<div th:insert="navbar :: navbar(role = ${role})"></div>
+<div class="container">
+    <h1 class="table-header"><strong>Users</strong></h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Admin Rights</th>
+            <th>Rentals</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getLastName() + ' ' + user.getFirstName()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getPhoneNumber()}"></td>
+            <td>
+                <span th:if="${user.isAdmin()}">Yes</span>
+                <span th:unless="${user.isAdmin()}">No <a th:unless="${user.isAdmin()}" href="#" class="grant-access-link" th:data-user-id="${user.getId()}">Grant Access?</a></span>
+            </td>
+            <td>
+                <a style="padding: 10px 25px 10px 25px" th:href="@{'/view-rentals?userId=' + ${user.getId()}}" class="submit">View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.grant-access-link').click(function (e) {
+            e.preventDefault();
+            var userId = $(this).data('user-id');
+
+            $.ajax({
+                type: 'POST',
+                url: 'users/grant-access?userId=' + userId,
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error('Error granting access:', error);
+                    alert('Error granting access. Please try again.');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

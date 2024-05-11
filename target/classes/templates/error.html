@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent-A-Book</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<div th:insert="navbar :: navbar(role = ${role})"></div>
+<div class="container" style="max-width: 90%">
+    <h1 class="title"><strong>Oops!</strong></h1>
+    <p class="sub-title" style="margin: 8%"><strong style="padding-bottom: 5px">Looks like this page got lost in the plot
+        <br></strong>We're busy navigating our way back to the right chapter. Thanks for your patience
+    </p>
+</div>
+</body>
+</html>

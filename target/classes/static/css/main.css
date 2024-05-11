@@ -1,0 +1,268 @@
+body {
+    background-color: #FEFAE0;
+    max-width: 100%;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+.nav-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #606C38;
+    margin-bottom: 10px;
+}
+
+.nav-bar a {
+    color: #FEFAE0;
+    font-size: 120%;
+    margin-right: 2%;
+    margin-left: 2%;
+    padding: 20px;
+    text-decoration: none;
+}
+
+.nav-link {
+    justify-content: center;
+}
+
+.nav-bar a:hover {
+    background-color: #DDA15E;
+}
+
+p > a {
+    color: #BC6C25;
+}
+
+p {
+    color: #FEFAE0;
+}
+
+.title {
+    margin-top: 10%;
+    color: #BC6C25;
+    text-align: center;
+    font-size: 500%;
+}
+
+.title-2 {
+    margin-top: 5%;
+    color: #BC6C25;
+    text-align: center;
+    font-size: 300%;
+}
+
+.sub-title {
+    margin: 12%;
+    color: #DDA15E;
+    text-align: center;
+    font-size: 200%;
+}
+
+.sub-title-2 {
+    color: #DDA15E;
+    text-align: center;
+    font-size: 200%;
+}
+
+.sub-title > strong {
+    font-size: 150%;
+    color: #BC6C25;
+}
+
+.table-header {
+    margin-top: 5%;
+    color: #BC6C25;
+    text-align: center;
+    font-size: 350%;
+}
+
+table {
+    margin-top: 5%;
+    align-items: center;
+    border-left: 3px solid #FEFAE0;
+    border-right: 3px solid #FEFAE0;
+    border-top: 3px solid #FEFAE0;
+    border-bottom: 3px solid #DDA15E;
+    border-collapse: collapse;
+    font-size: 150%;
+    border-radius: 25px;
+    text-align: center;
+}
+
+.container:has(table) {
+    max-width: 85%;
+    padding-bottom: 5%;
+}
+
+.container > table th,
+.container > table td {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #DDA15E;
+    vertical-align: middle;
+    color: #BC6C25;
+    word-wrap: break-word;
+}
+
+tr:first-child {
+    border-top: 3px solid #DDA15E;
+}
+
+tr > th {
+    color: #BC6C25;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+    border-bottom: 2px solid #DDA15E;
+    vertical-align: middle;
+    color: #BC6C25;
+}
+
+.wrap {
+    background-color: #606C38;
+    padding: 2%;
+    width: 60%;
+    height: auto;
+    min-width: 350px;
+    margin: 100px auto;
+    box-shadow: 0 0 10px #606C38;
+    border-radius: 10px;
+    border: 1px solid #606C38;
+    align-content: center;
+    align-items: center;
+}
+
+input[id="lastName"],
+input[id="firstName"],
+input[id="phoneNumber"]{
+    width: 100%;
+    margin: 20px auto;
+    padding: 15px;
+}
+
+input {
+    width: 70%;
+    align-content: center;
+    align-items: center;
+    margin: 3%;
+    padding: 3% 1% 3% 1%;
+    border: 1px solid #606C38;
+    border-radius: 25px;
+    font-size: 20px;
+    transition: all .2s ease-in-out;
+    text-align: center;
+}
+
+form {
+    text-align: center;
+}
+
+input:focus {
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+    transition: all .2s ease-in-out;
+}
+
+.submit {
+    width: auto;
+    padding: 3% 5% 3% 5%;
+    border-radius: 50px;
+    border: 1px solid #BC6C25;
+    font-size: 20px;
+    background-color: #BC6C25;
+    color: #fff;
+    transition: all .2s ease-in-out;
+    text-align: center;
+}
+
+.submit:hover {
+    width: auto;
+    padding: 3% 5% 3% 5%;
+    border-radius: 10px;
+    border: 1px solid #32CD32;
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+    background-color: #32CD32;
+    transition: all .2s ease-in-out;
+    text-align: center;
+}
+
+button.submit {
+    min-width: 25px;
+    width: 50%;
+}
+
+button.submit:hover {
+    min-width: 25px;
+    width:70%;
+}
+
+div > button.submit {
+    font-size: 100%;
+    height: auto;
+    width: auto;
+}
+
+div > button.submit:hover {
+    font-size: 100%;
+    width:auto;
+    height: auto;
+}
+
+.grant-access-link {
+    color: #606C38;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.grant-access-link:hover {
+    color: #515e2e;
+}
+
+tr > th:nth-child(5) {
+    min-width: 100px;
+    width:auto;
+}
+
+.button-container {
+    position: relative;
+    text-align: center;
+}
+
+.button-container a {
+    background-color: #BC6C25;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button-container a i {
+    color: white;
+}
+
+.btn-icon {
+    font-size: 1em;
+    color: #BC6C25;
+}
+
+.card {
+    margin: 10%;
+    background-color: #606C38;
+    color: #FEFAE0;
+}
+
+.card-text {
+    align-content: center;
+}

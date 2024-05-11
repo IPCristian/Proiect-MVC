@@ -1,25 +1,34 @@
 package com.project.proiectspring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table
+@Table(name = "book")
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    @NotNull
     private long id;
 
+    @Column(name="title")
+    @NotNull
     private String title;
     @ManyToOne
+    @JsonIgnoreProperties("books")
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
     @ManyToOne
+    @JsonIgnoreProperties("books")
     @JoinColumn(name = "genre_id", nullable = false)
     private Genre genre;
 
     @ManyToOne
+    @JsonIgnoreProperties("books")
     @JoinColumn(name = "publisher_id", nullable = false)
     private Publisher publisher;
 

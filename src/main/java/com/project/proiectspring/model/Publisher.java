@@ -1,17 +1,28 @@
 package com.project.proiectspring.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table
+@Table(name = "publisher")
 public class Publisher {
 
     @Id
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private long id;
 
+    @Column(name="name")
+    @NotNull
     private String name;
+
+    @Column(name="location")
+    @NotNull
     private String location;
+
+    @Column(name="website")
+    @NotNull
     private String website;
 
     public Publisher() {

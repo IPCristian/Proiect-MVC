@@ -3,11 +3,13 @@ package com.project.proiectspring.service;
 import com.project.proiectspring.exception.BookNotFoundException;
 import com.project.proiectspring.model.Author;
 import com.project.proiectspring.model.Book;
+import com.project.proiectspring.model.User;
 import com.project.proiectspring.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,19 +39,30 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public List<Book> get(Author author) {
+    public Book update(Book book, String title) {
+        Optional<Book> existingBook = bookRepository.findById(book.getId());
+        if(existingBook.isEmpty()) {
+            throw new BookNotFoundException();
+        }
+
+        book.setTitle(title);
+
+        return bookRepository.save(book);
+    }
+
+    public List<Book> get(Long authorId) {
 
         List<Book> books = new ArrayList<>();
 
-        if(author != null) {
-                books = bookRepository.findByAuthor(author);
+        if(authorId != null) {
+                books = bookRepository.findByAuthorId(authorId);
             } else {
                 books = bookRepository.findAll();
         }
         return books;
     }
 
-    public Book get(Long id) {
+    public Book getByID(Long id) {
 
         if(id != null) {
             Optional<Book> book = bookRepository.findById(id);
@@ -60,5 +73,12 @@ public class BookService {
         }
 
         return null;
+    }
+
+    public void delete(Long id) {
+
+        Book book = getByID(id);
+        if (book != null)
+            bookRepository.delete(book);
     }
 }

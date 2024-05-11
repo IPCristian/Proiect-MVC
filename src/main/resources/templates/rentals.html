@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent-A-Book</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<div th:insert="navbar :: navbar(role = ${role})"></div>
+<div class="container">
+    <p class="title-2"><strong>User Details</strong></p>
+    <p class="sub-title-2" style="margin-top:5%" th:text="'User Name: ' + ${user.lastName + ' ' + user.firstName}"></p>
+    <p class="sub-title-2" th:text="'Phone Number: ' + ${user.phoneNumber}"></p>
+    <p class="sub-title-2" th:text="'Email: ' + ${user.email}"></p>
+    <p class="title-2"><strong>Rentals</strong></p>
+    <p class="sub-title-2" th:if="${rentals.size() <=0}">User doesn't have any rentals</p>
+    <div class="row">
+        <div th:each="rental : ${rentals}" class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${rental.book.title}"></h5>
+                    <p class="card-text">
+                        <strong>Author: </strong> <span th:text="${rental.book.author.firstName + ' ' + rental.book.author.lastName}"></span><br>
+                        <strong>Genre: </strong> <span th:text="${rental.book.genre.name}"></span><br>
+                        <strong>Publisher: </strong> <span th:text="${rental.book.publisher.name}"></span><br>
+                        <strong>Publisher Website: </strong> <span th:text="${rental.book.publisher.website}"></span><br>
+                        <strong>Renting Date: </strong> <span th:text="${rental.rentingDate}"></span><br>
+                        <strong>Due Date: </strong> <span th:text="${rental.dueDate}"></span><br>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

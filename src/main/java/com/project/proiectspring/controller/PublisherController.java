@@ -6,6 +6,8 @@ import com.project.proiectspring.model.Publisher;
 import com.project.proiectspring.service.PublisherService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping("/publishers")
 public class PublisherController {
 
+    private static final Logger logger = LoggerFactory.getLogger(PublisherController.class);
     private final PublisherService publisherService;
     private final PublisherMapper publisherMapper;
 
@@ -29,6 +32,8 @@ public class PublisherController {
     public List<Publisher> get(
             @RequestParam(required = false)
             String name) {
+
+        logger.info("Retrieving publishers");
         return publisherService.get(name);
     }
 
@@ -41,6 +46,8 @@ public class PublisherController {
     ) {
         Publisher publisher = publisherMapper.createPublisherDtoToPublisher(createPublisherDto);
         Publisher createdPublisher = publisherService.create(publisher);
+
+        logger.info("Adding a new publisher");
         return ResponseEntity.created(URI.create("/publishers/" + createdPublisher.getId()))
                 .body(createdPublisher);
     }

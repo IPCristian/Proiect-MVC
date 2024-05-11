@@ -1,0 +1,23 @@
+<div th:fragment="navbar">
+    <div th:switch="${role}">
+        <div th:case="'ADMIN'" class="nav-bar">
+            <a class="nav-link" th:href="@{'/logout'}" title="Logout"> <i class="fa-solid fa-right-from-bracket"></i> Logout </a>
+            <a class="nav-link" th:href="@{'/'}" title="Home"> <i class="fa-solid fa-house"></i> Home </a>
+            <a class="nav-link" th:href="@{'/view-authors'}" title="Authors"> <i class="fa-sharp fa-solid fa-at"></i> Authors </a>
+            <a class="nav-link" th:href="@{'/view-books'}" title="Books"> <i class="fa-sharp fa-solid fa-book"></i> Books </a>
+            <a class="nav-link" th:href="@{'/view-users'}" title="Users"> <i class="fa-solid fa-list"></i> Users </a>
+        </div>
+        <div th:case="'USER'" class="nav-bar">
+            <a class="nav-link" th:href="@{'/logout'}" title="Logout"> <i class="fa-solid fa-right-from-bracket"></i> Logout </a>
+            <a class="nav-link" th:href="@{'/'}" title="Home"> <i class="fa-solid fa-house"></i> Home </a>
+            <a class="nav-link" th:href="@{'/view-authors'}" title="Authors"> <i class="fa-sharp fa-solid fa-at"></i> Authors </a>
+            <a class="nav-link" th:href="@{'/view-books'}" title="Books"> <i class="fa-sharp fa-solid fa-book"></i> Books </a>
+        </div>
+        <div th:case="*" class="nav-bar">
+            <a class="nav-link" th:href="@{'/login'}" title="Login"> <i class="fa-solid fa-user"></i> Login </a>
+            <a class="nav-link" th:href="@{'/'}" title="Home"> <i class="fa-solid fa-house"></i> Home </a>
+            <a class="nav-link" th:href="@{'/view-authors'}" title="Authors"> <i class="fa-sharp fa-solid fa-at"></i> Authors </a>
+            <a class="nav-link" th:href="@{'/view-books'}" title="Books"> <i class="fa-sharp fa-solid fa-book"></i> Books </a>
+        </div>
+    </div>
+</div>

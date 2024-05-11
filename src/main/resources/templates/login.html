@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<div th:insert="navbar :: navbar(role = ${role})"></div>
+<div class="container">
+    <h1 class="title"><strong>Login</strong></h1>
+    <div class="wrap">
+        <form method="post" action="/login" onsubmit="submitForm(event)">
+            <input type="text" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <p style="text-align: center;">Don't have an account? <a th:href="@{/signup}">Sign up</a></p>
+            <input type="submit" class="submit" id="login" value="Submit">
+        </form>
+    </div>
+</div>
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+
+        var loginRequest = {
+            email: email,
+            password: password
+        };
+
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(loginRequest)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Invalid email or password");
+                }
+                window.location.href = "/";
+                return response.json();
+            })
+            .catch(error => {
+                console.error("Login failed:", error.message);
+                alert("Login failed: " + error.message);
+            });
+    }
+</script>
+</body>
+</html>

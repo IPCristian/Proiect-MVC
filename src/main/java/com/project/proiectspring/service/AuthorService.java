@@ -3,6 +3,7 @@ package com.project.proiectspring.service;
 import com.project.proiectspring.exception.AuthorNotFoundException;
 import com.project.proiectspring.model.Author;
 import com.project.proiectspring.repository.AuthorRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,5 +57,9 @@ public class AuthorService {
         }
 
         return null;
+    }
+
+    public List<Author> getSortedAuthors(Sort sort) {
+        return authorRepository.findAll(sort);
     }
 }

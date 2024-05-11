@@ -21,14 +21,19 @@ public class CreateUserDto {
     @Size(max = 15)
     private String phoneNumber;
 
+    @NotBlank
+    @Size(max = 30)
+    private String password;
+
     public CreateUserDto() {
     }
 
-    public CreateUserDto(String lastName, String firstName, String email, String phoneNumber) {
+    public CreateUserDto(String lastName, String firstName, String email, String phoneNumber, String password) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.password = password;
     }
 
     public String getLastName() {
@@ -61,5 +66,13 @@ public class CreateUserDto {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

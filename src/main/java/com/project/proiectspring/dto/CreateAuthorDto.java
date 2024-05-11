@@ -1,7 +1,11 @@
 package com.project.proiectspring.dto;
 
+import com.project.proiectspring.model.Book;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 public class CreateAuthorDto {
 
@@ -13,17 +17,13 @@ public class CreateAuthorDto {
     @Size(max = 100)
     private String firstName;
 
-    @NotBlank
-    @Size(max = 300)
-    private String biography;
 
     public CreateAuthorDto() {
     }
 
-    public CreateAuthorDto(String lastName, String firstName, String biography) {
+    public CreateAuthorDto(String lastName, String firstName) {
         this.lastName = lastName;
         this.firstName = firstName;
-        this.biography = biography;
     }
 
     public String getLastName() {
@@ -40,13 +40,5 @@ public class CreateAuthorDto {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getBiography() {
-        return biography;
-    }
-
-    public void setBiography(String biography) {
-        this.biography = biography;
     }
 }

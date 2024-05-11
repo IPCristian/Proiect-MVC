@@ -1,6 +1,7 @@
 package com.project.proiectspring.repository;
 
 import com.project.proiectspring.model.Author;
+import com.project.proiectspring.model.Biography;
 import com.project.proiectspring.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,6 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
 
     List<Author> findByFirstName(String firstName);
 
-    List<Author> findByBiography(String biography);
+    List<Author> findByBiography(Biography biography);
 
 }

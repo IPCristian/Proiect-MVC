@@ -1,16 +1,24 @@
 package com.project.proiectspring.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table
+@Table(name = "genre")
 public class Genre {
 
     @Id
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private long id;
 
+    @Column(name="name")
+    @NotNull
     private String name;
+
+    @Column(name="description")
+    @NotNull
     private String description;
 
     public Genre() {

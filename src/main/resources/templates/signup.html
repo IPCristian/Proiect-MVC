@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<div th:insert="navbar :: navbar(role = ${role})"></div>
+<div class="container">
+    <h1 class="title"><strong>Sign Up</strong></h1>
+    <div class="wrap">
+        <form method="post" action="/signup" onsubmit="submitForm(event)">
+            <div class="row">
+                <div class="col">
+                    <input type="text" id="lastName" placeholder="Last Name">
+                </div>
+                <div class="col">
+                    <input type="text" id="firstName" placeholder="First Name">
+                </div>
+                <div class="col">
+                    <input type="tel" id="phoneNumber" placeholder="Phone number">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="email" id="email" placeholder="Email">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <input type="password" id="password" placeholder="Password">
+                </div>
+            </div>
+            <p style="text-align: center;">Already have an account? <a th:href="@{/login}">Login</a></p>
+            <div class="row">
+                <div class="col">
+                    <input type="submit" class="submit" id="signup" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+
+        var lastName = document.getElementById("lastName").value.trim();
+        var firstName = document.getElementById("firstName").value.trim();
+        var phoneNumber = document.getElementById("phoneNumber").value.trim();
+        var email = document.getElementById("email").value.trim();
+        var password = document.getElementById("password").value.trim();
+
+        if (lastName === "" || firstName === "" || phoneNumber === "" || email === "" || password === "") {
+            alert("All fields are required");
+            return;
+        }
+
+        var signupRequest = {
+            lastName: lastName,
+            firstName: firstName,
+            email: email,
+            phoneNumber: phoneNumber,
+            password: password
+        };
+
+        fetch("/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(signupRequest)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Invalid Inputs");
+                }
+                window.location.href = "/";
+                return response.json();
+            })
+            .catch(error => {
+                console.error("Sign-Up failed:", error.message);
+                alert("Sign-Up failed: " + error.message);
+            });
+    }
+</script>
+</body>
+</html>

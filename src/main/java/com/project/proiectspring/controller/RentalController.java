@@ -8,6 +8,8 @@ import com.project.proiectspring.model.User;
 import com.project.proiectspring.service.BookRentalService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,7 @@ import java.util.List;
 @RequestMapping("/rentals")
 public class RentalController {
 
+    private static final Logger logger = LoggerFactory.getLogger(RentalController.class);
     private final BookRentalService bookRentalService;
     private final RentalMapper rentalMapper;
 
@@ -32,6 +35,7 @@ public class RentalController {
             @RequestParam(required = false)
             User user) {
 
+        logger.info("Retrieving rentals");
         return bookRentalService.get(user);
     }
 
@@ -44,6 +48,8 @@ public class RentalController {
     ) {
         BookRental rental = rentalMapper.createRentalDtoToRental(createRentalDto);
         BookRental createdRental = bookRentalService.create(rental);
+
+        logger.info("Adding a new rental");
         return ResponseEntity.created(URI.create("/rentals/" + createdRental.getId()))
                 .body(createdRental);
     }

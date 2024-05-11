@@ -1,6 +1,7 @@
 package com.project.proiectspring.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.sql.Date;
 
@@ -9,20 +10,27 @@ import java.sql.Date;
 public class BookRental {
 
     @Id
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @NotNull
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
 
+    @Column(name="renting_date")
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Date rentingDate;
 
+    @Column(name="due_date")
+    @NotNull
     @Temporal(TemporalType.DATE)
     private Date dueDate;
 

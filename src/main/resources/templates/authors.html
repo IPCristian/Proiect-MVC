@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent-A-Book</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body style="width: 100%;">
+<div th:insert="navbar :: navbar(role = ${role})"></div>
+<div class="container">
+    <h1 class="table-header"><strong>Authors</strong></h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Last Name
+                <a id="ascendingLast" th:href="@{'/view-authors?sortBy=lastName&amp;order=asc'}">
+                    <i class="fas fa-sort-alpha-down" style="color: #DDA15E;"></i>
+                </a>
+                <a id="descendingLast" th:href="@{'/view-authors?sortBy=lastName&amp;order=desc'}">
+                    <i class="fas fa-sort-alpha-up" style="color: #DDA15E;"></i>
+                </a>
+                <a id="defaultLast" th:href="@{'/view-authors'}">
+                    <i class="fas fa-sort" style="color: #DDA15E;"></i>
+                </a></th>
+            <th>First Name</th>
+            <th>Birth Place</th>
+            <th>Biography</th>
+            <th>Bibliography</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="author : ${authors}">
+            <td th:text="${author.getLastName()}"></td>
+            <td th:text="${author.getFirstName()}"></td>
+            <td th:text="${author.getBiography() != null ? author.getBiography().getBirthPlace() : '-'}"></td>
+            <td th:text="${author.getBiography() != null ? author.getBiography().getBiography() : '-'}"></td>
+            <td>
+                <a style="padding: 10px 25px 10px 25px" th:href="@{'/view-books?authorId=' + ${author.getId()}}" class="submit">View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="margin: 25px" th:if="${role.contains('ADMIN')}" class="button-container">
+    <a class="btn btn-primary" data-toggle="modal" data-target="#addAuthorModal">
+        <i class="fa-solid fa-plus"></i>
+    </a>
+</div>
+<div style="padding-top:50px"></div>
+
+<div class="modal fade" id="addAuthorModal" tabindex="-1" role="dialog" aria-labelledby="addAuthorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: #FEFAE0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addAuthorModalLabel">Add Author</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastName">Last Name:</label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="firstName">First Name:</label>
+                                <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="submit" data-dismiss="modal">Close</button>
+                <button type="button" class="submit" id="saveAuthor">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        const ascendingBtn = document.getElementById('ascendingLast');
+        const descendingBtn = document.getElementById('descendingLast');
+        const defaultBtn = document.getElementById('defaultLast');
+
+        function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+        const sortParam = getParameterByName('sortBy');
+        const orderParam = getParameterByName('order');
+
+        if (sortParam === 'lastName' && orderParam === 'asc') {
+        ascendingBtn.style.display = 'none';
+        descendingBtn.style.display = 'inline';
+        defaultBtn.style.display = 'none';
+    } else if (sortParam === 'lastName' && orderParam === 'desc') {
+        ascendingBtn.style.display = 'none';
+        descendingBtn.style.display = 'none';
+        defaultBtn.style.display = 'inline';
+    } else {
+        ascendingBtn.style.display = 'inline';
+        descendingBtn.style.display = 'none';
+        defaultBtn.style.display = 'none';
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#addAuthorModal').on('show.bs.modal', function (event) {
+            var modal = $(this);
+            modal.find('.modal-title').text('Add Author');
+        });
+
+        $('#saveAuthor').click(function () {
+            var lastName = $('#lastName').val();
+            var firstName = $('#firstName').val();
+            var authorData = {
+                "lastName": lastName,
+                "firstName": firstName
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/authors',
+                contentType: 'application/json',
+                data: JSON.stringify(authorData),
+                success: function (response) {
+                    console.log('Author added successfully:', response);
+                    $('#addAuthorModal').modal('hide');
+                    location.reload();
+                },
+                error: function () {
+                    console.error('Error adding author');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

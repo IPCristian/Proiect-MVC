@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ro" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rent-A-Book</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/webjars/font-awesome/6.4.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+</head>
+<body>
+<div th:insert="navbar :: navbar(role = ${role})"></div>
+<div class="container">
+    <h1 class="title"><strong>Rent-A-Book</strong></h1>
+    <p class="sub-title">Dive into our extensive library of captivating reads, from timeless classics to contemporary gems
+        <br><br>Rent your next adventure with ease and immerse yourself in the magic of literature
+        <br><br><strong>Your next adventure awaits</strong></p>
+</div>
+</body>
+</html>
